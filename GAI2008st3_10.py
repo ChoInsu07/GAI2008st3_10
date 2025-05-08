@@ -1,21 +1,13 @@
 #2024106140 choinsu
 #2023106117 yujianuo
 
-def get_originalItext():
+def get_original_text():
     return 'as df'
 
 def get_shift_amount():
     return 1
 
 def remove_nonletters(input_text):
-    return 'asdf'
-
-def get_shift_amount():
-    # 使用 argparse 获取 shift 参数
-    return 1
-
-def remove_nonletters(input_text):
-    # 去除非字母，只保留字母
     return 'asdf'
 
 def cipher(text, shift_amount):

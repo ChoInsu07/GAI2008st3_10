@@ -1,29 +1,39 @@
 #2024106140 choinsu
 #2023106117 yujianuo
 
-def get_original_text():
-    return 'as df'
+import argparse
 
-def get_shift_amount():
-    return 1
+def clean_text(text):
+    return ''.join(filter(str.isalpha, text))
 
-def remove_nonletters(input_text):
-    return 'asdf'
+def shift_text(text, shift):
+    shifted = ""
+    for c in text.upper():
+        shifted += chr(((ord(c) - ord('A') + shift) % 26) + ord('A'))
+    return shifted
 
-def cipher(text, shift_amount):
-    # 加密，每5个字母插入空格
-    return 'zxcv'
+def unshift_text(text, shift):
+    return shift_text(text, -shift)
 
-def decipher(text, shift_amount):
-    # 解密，把空格去掉并做逆向位移
-    return 'asdf'
+def format_five(text):
+    return ' '.join([text[i:i+5] for i in range(0, len(text), 5)])
 
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("filename")
+    parser.add_argument("shift", type=int)
+    args = parser.parse_args()
 
-if __name__ == '__main__':
-    original_text = get_original_text()
-    shift_amount = get_shift_amount()
-    text_letter_only = remove_nonletters(original_text)
-    cipher_text = cipher(text_letter_only, shift_amount)
-    print(f'cipher_text=> {cipher_text}')
-    decipher_text = decipher(cipher_text, shift_amount)
-    print(f'decipher_text=> {decipher_text}')
+    with open(args.filename, 'r') as f:
+        original = f.read()
+
+    cleaned = clean_text(original)
+    ciphered = shift_text(cleaned, args.shift)
+    formatted = format_five(ciphered)
+    deciphered = unshift_text(ciphered, args.shift)
+
+    print("Cipher Text:", formatted)
+    print("Deciphered Text:", deciphered)
+
+if __name__ == "__main__":
+    main()
